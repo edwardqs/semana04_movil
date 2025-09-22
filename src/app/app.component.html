@@ -1,10 +1,11 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
+  <ion-split-pane contentId="main-content" [disabled]="!showMenu">
+    
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi&#64;ionicframework.com</ion-note>
+          <ion-note>hi@ionicframework.com</ion-note>
 
           @for (p of appPages; track p; let i = $index) {
             <ion-menu-toggle auto-hide="false">
@@ -14,6 +15,14 @@
               </ion-item>
             </ion-menu-toggle>
           }
+          
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="logout()" lines="none" detail="false" button>
+              <ion-icon aria-hidden="true" slot="start" ios="log-out-outline" md="log-out-sharp"></ion-icon>
+              <ion-label>Cerrar Sesión</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
         </ion-list>
 
         <ion-list id="labels-list">
@@ -28,6 +37,7 @@
         </ion-list>
       </ion-content>
     </ion-menu>
+    
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

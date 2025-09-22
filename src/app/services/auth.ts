@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  url="http://localhost:8000/api/login";
-  constructor(private http:HttpClient) { 
-  }
-  public verificarEmail(email:string){
-    return this.http.get(this.url+"/"+email);
-  }
-  public verificarClave(email:string,password:string){
-    return this.http.get<any>(this.url+"/"+email+"/"+password);
-  }
+  // URL base de tu API
+  private baseUrl = "http://localhost:8000/api";
+
+  constructor(private http: HttpClient) { }
   
+  // Método de login mejorado
+  public login(credentials: {email: string, password: string}) {
+    return this.http.post<any>(`${this.baseUrl}/login`, credentials);
+  }
+
+  // Nuevo método para registrar usuarios
+  public register(userData: {email: string, password: string}) {
+    return this.http.post<any>(`${this.baseUrl}/register`, userData);
+  }
 }
